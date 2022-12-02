@@ -81,6 +81,12 @@ jobs:
         name: eclipse-leda-qemu-x86_64.tar.xz
         if-no-files-found: error
         path: eclipse-leda-qemu-x86_64.tar.xz
+    - name: Upload files
+      uses: actions/upload-artifact@v3
+      with: 
+        name: sdv-rauc-bundle-qemux86-64.raucb
+        if-no-files-found: error
+        path: ./build/tmp/deploy/images/qemux86-64/sdv-rauc-bundle-qemux86-64.raucb
     - name: Package SPDX files
       run: |
         tar --create --gzip --file eclipse-leda-sbom-qemux86_64.tar.gz -C ./build/tmp/deploy/spdx/qemux86-64/ .
@@ -159,6 +165,12 @@ jobs:
         name: eclipse-leda-qemu-arm64.tar.xz
         if-no-files-found: error
         path: eclipse-leda-qemu-arm64.tar.xz
+    - name: Upload files
+      uses: actions/upload-artifact@v3
+      with: 
+        name: sdv-rauc-bundle-qemuarm64.raucb
+        if-no-files-found: error
+        path: sdv-rauc-bundle-qemuarm64.raucb
     - name: Package SPDX files
       run: |
         tar --create --gzip --file eclipse-leda-sbom-qemuarm64.tar.gz -C ./build/tmp/deploy/spdx/qemuarm64/ .
@@ -231,6 +243,12 @@ jobs:
         name: eclipse-leda-raspberrypi.tar.xz
         if-no-files-found: error
         path: eclipse-leda-raspberrypi.tar.xz
+    - name: Upload files
+      uses: actions/upload-artifact@v3
+      with: 
+        name: sdv-rauc-bundle-raspberrypi4-64.raucb
+        if-no-files-found: error
+        path: sdv-rauc-bundle-raspberrypi4-64.raucb
     - name: Package SPDX files
       run: |
         tar --create --gzip --file eclipse-leda-sbom-raspberrypi4-64.tar.gz -C ./build/tmp/deploy/spdx/raspberrypi4-64/ .
