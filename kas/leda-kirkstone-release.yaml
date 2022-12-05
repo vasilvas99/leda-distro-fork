@@ -25,14 +25,16 @@ distro: leda
 target: sdv-image-all
 local_conf_header:
   meta-leda: |
-    INHERIT:append = " rm_work"
+    INHERIT += "rm_work"
     INHERIT:remove = " archiver"
     INHERIT:remove = " cve-check"
     INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
-  sign_conf: |
+  rauc-sign-conf: |
     RAUC_KEYRING_FILE="${TOPDIR}/../examples/example-ca/ca.cert.pem"
     RAUC_KEY_FILE="${TOPDIR}/../examples/example-ca/private/development-1.key.pem"
     RAUC_CERT_FILE="${TOPDIR}/../examples/example-ca/development-1.cert.pem"
+  buils-stats: |
+    USER_CLASSES += "buildstats buildstats-summary"
 repos:
   # This entry includes the repository where the config file is located
   # to the bblayers.conf:
@@ -40,25 +42,33 @@ repos:
   # bblayers.conf:
   poky:
     url: "https://git.yoctoproject.org/git/poky"
-    refspec: master
+    refspec: kirkstone-4.0.5
     layers:
       meta:
       meta-poky:
       meta-yocto-bsp:
   meta-rauc-community:
     url: "https://github.com/rauc/meta-rauc-community.git"
-    refspec: master
+    # kirkstone branch as of 2022-12-02
+    refspec: 3e544b281a17b3ccf69368149cb702ae148aecb6
     layers:
       meta-rauc-qemux86:
   meta-rauc:
     url: "https://github.com/rauc/meta-rauc.git"
-    refspec: master
+    # kirkstone branch as of 2022-12-02
+    refspec: e2a60ded9c08118c17c23aa07cca21df77fb6628
+  meta-kanto:
+    url: "https://github.com/eclipse-kanto/meta-kanto.git"
+    # kirkstone branch as of 2022-12-02
+    refspec: 7d4067987321fbf274cf34b05415bb74a20abf52
   meta-virtualization:
     url: "https://git.yoctoproject.org/meta-virtualization"
-    refspec: master
+    # kirkstone branch as of 2022-12-02
+    refspec: e68bfe7dae68326e8be64ebb3d99a1849c466e80
   meta-openembedded:
     url: "https://git.openembedded.org/meta-openembedded"
-    refspec: master
+    # kirkstone branch as of 2022-12-02
+    refspec: 50d4a8d2a983a68383ef1ffec2c8e21adf0c1a79
     layers:
       meta-oe:
       meta-filesystems:
@@ -66,10 +76,16 @@ repos:
       meta-networking:
   meta-raspberrypi:
     url: "https://git.yoctoproject.org/meta-raspberrypi"
-    refspec: master
+    # kirkstone branch as of 2022-12-02
+    refspec: dacad9302a92b0b7edf8546cdcad1f8ef753e462
+  meta-spdxscanner:
+    url: https://git.yoctoproject.org/meta-spdxscanner
+    # kirkstone branch as of 2022-12-02
+    refspec: eb2675e9b96bfe75d954785c935477196bae8e24
   meta-leda:
     url: "https://github.com/eclipse-leda/meta-leda"
-    refspec: main
+    # kirkstone branch as of 2022-12-02
+    refspec: a46e703b43713f51ed455c097eafc2b83085c1bf
     layers:
       meta-leda-bsp:
       meta-leda-components:
