@@ -1,0 +1,118 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "inputs": [
+    {
+      "id": "bbTarget",
+      "type": "promptString",
+      "description": "The BitBake target (eg recipe name) to build",
+      "default": "sdv-image-all",
+    },
+    {
+      "id": "bbTask",
+      "type": "pickString",
+      "description": "The BitBake task to execute",
+      "options": [
+        "clean",
+        "cleanall",
+        "cleansstate",
+        "devshell",
+        "build"
+      ],
+      "default": "build",
+    },
+  ],
+  "tasks": [
+    {
+      "label": "Run Leda (qemux86-64)",
+      "type": "shell",
+      "command": "sudo scripts/run-image.sh 1",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Build Leda (qemux86-64)",
+      "type": "shell",
+      "command": "kas build kas/leda-qemux86-64.yaml",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": {
+        "source": "bitbake",
+        "fileLocation": "absolute",
+        "severity": "error",
+        "pattern": {
+          "regexp": "^ERROR: Task \\((.*)\\:(.*)\\)(.*)$",
+          "file": 1,
+          "message": 3
+        }
+      }
+    },
+    {
+      "label": "Build single recipe",
+      "type": "shell",
+      "command": "kas build --target ${input:bbTarget} --task ${input:bbTask} kas/leda-qemux86-64.yaml",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": {
+        "source": "bitbake",
+        "fileLocation": "absolute",
+        "severity": "error",
+        "pattern": {
+          "regexp": "^ERROR: Task \\((.*)\\:(.*)\\)(.*)$",
+          "file": 1,
+          "message": 3
+        }
+      }
+    },
+    {
+      "label": "Build Leda (qemuarm64)",
+      "type": "shell",
+      "command": "kas build kas/leda-qemuarm64.yaml",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": {
+        "source": "bitbake",
+        "fileLocation": "absolute",
+        "severity": "error",
+        "pattern": {
+          "regexp": "^ERROR: Task \\((.*)\\:(.*)\\)(.*)$",
+          "file": 1,
+          "message": 3
+        }
+      }
+    },
+    {
+      "label": "Build Leda (raspberrypi4-64)",
+      "type": "shell",
+      "command": "kas build kas/leda-raspberrypi4-64.yaml",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": {
+        "source": "bitbake",
+        "fileLocation": "absolute",
+        "severity": "error",
+        "pattern": {
+          "regexp": "^ERROR: Task \\((.*)\\:(.*)\\)(.*)$",
+          "file": 1,
+          "message": 3
+        }
+      }
+    }
+  ]
+}
